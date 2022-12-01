@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-color {
+  @apply bg-gradient-to-r from-blue-400 to-emerald-400;
+}
