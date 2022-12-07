@@ -1,13 +1,12 @@
-const createTodo = async (req, res) => {
-  res.send(`create todolist`);
-};
+import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const editTodo = async (req, res) => {
-  res.send(`edit todolist`);
-};
+const Todo = new Schema({
+  list: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+});
 
-const deleteTodo = async (req, res) => {
-  res.send(`delete Todo`);
-};
-
-export { createTodo, editTodo, deleteTodo };
+export default mongoose.model("Todo", Todo);

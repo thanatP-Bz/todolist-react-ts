@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import { createTodo, editTodo, deleteTodo } from "../model/todoModel.js";
+import { createTodo, editTodo, deleteTodo } from "../controller/todoModel.js";
 
 router.route("/create").post(createTodo);
 router.route("/edit").patch(editTodo);
