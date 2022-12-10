@@ -1,12 +1,13 @@
 import Todo from "../model/todoModel.js";
 
 const createTodo = async (req, res) => {
+  const { todo } = req.body;
+
   try {
-    const list = await Todo.create(req.body);
-    res.status(201).json({ list });
+    const list = await Todo.create({ todo });
+    res.status(201).json(list);
   } catch (error) {
-    /*  res.status(500).json({ msg: "something went wrong" }); */
-    console.log(error);
+    res.status(500).json({ msg: "something went wrong" });
   }
 };
 
