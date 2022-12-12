@@ -3,20 +3,20 @@ import Form from "../src/components/Form";
 import ItemList from "../src/components/ItemList";
 import { Todo } from "../src/components/Todo";
 
-const getLocalStorage = () => {
+/* const getLocalStorage = () => {
   let list = localStorage.getItem("item");
   if (list) {
     return JSON.parse(localStorage.getItem("item") || "");
   }
   return [];
 };
-
+ */
 function App() {
   const [value, setValue] = useState<string>("");
-  const [item, setItem] = useState<Todo[]>(getLocalStorage());
+  const [item, setItem] = useState<Todo[]>([]);
 
-  /*useEffect(() => {
-     const fetchItem = async () => {
+  /*   useEffect(() => {
+    const fetchItem = async () => {
       const response = await fetch("http://localhost:5000/");
       const data = await response.json();
 
@@ -29,7 +29,7 @@ function App() {
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    let todo = { value };
+    let todo = { item };
 
     const response = await fetch("http://localhost:5000/api/v1/todo/", {
       method: "POST",

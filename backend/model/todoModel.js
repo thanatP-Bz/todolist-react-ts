@@ -4,7 +4,6 @@ const { Schema } = mongoose;
 const Todo = new Schema({
   todo: {
     type: String,
-    required: true,
     trim: true,
   },
 });

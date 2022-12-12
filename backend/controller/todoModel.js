@@ -7,7 +7,7 @@ const createTodo = async (req, res) => {
     const list = await Todo.create({ todo });
     res.status(201).json(list);
   } catch (error) {
-    res.status(500).json({ msg: "something went wrong" });
+    res.status(500).json({ error: error.message });
   }
 };
 
