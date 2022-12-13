@@ -3,32 +3,26 @@ import Form from "../src/components/Form";
 import ItemList from "../src/components/ItemList";
 import { Todo } from "../src/components/Todo";
 
-/* const getLocalStorage = () => {
+const getLocalStorage = () => {
   let list = localStorage.getItem("item");
   if (list) {
     return JSON.parse(localStorage.getItem("item") || "");
   }
   return [];
 };
- */
+
 function App() {
   const [value, setValue] = useState<string>("");
   const [item, setItem] = useState<Todo[]>([]);
 
-  /*   useEffect(() => {
-    const fetchItem = async () => {
-      const response = await fetch("http://localhost:5000/");
-      const data = await response.json();
-
-      console.log(data);
-    };
-
-    fetchItem();
-  }, []); */
-
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    console.log(item);
+
+    if (value) {
+      setItem([...item, { id: Date.now(), todo: value, isDone: false }]);
+    }
     let todo = { item };
 
     const response = await fetch("http://localhost:5000/api/v1/todo/", {
@@ -45,10 +39,6 @@ function App() {
 
     if (response.ok) {
       console.log("item Added", data);
-    }
-
-    if (value) {
-      setItem([...item, { id: Date.now(), todo: value, isDone: false }]);
     }
 
     setValue("");
