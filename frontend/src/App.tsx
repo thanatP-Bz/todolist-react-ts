@@ -18,16 +18,15 @@ function App() {
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(item);
+    const itemTodo = { id: Date.now(), todo: value, isDone: false };
 
     if (value) {
-      setItem([...item, { id: Date.now(), todo: value, isDone: false }]);
+      setItem([...item, itemTodo]);
     }
-    let todo = { item };
 
     const response = await fetch("http://localhost:5000/api/v1/todo/", {
       method: "POST",
-      body: JSON.stringify(todo),
+      body: JSON.stringify(""),
       headers: { "Content-Type": "application/json" },
     });
 
