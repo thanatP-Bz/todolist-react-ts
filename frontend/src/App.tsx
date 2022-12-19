@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Form from "../src/components/Form";
 import ItemList from "../src/components/ItemList";
 import { Todo } from "../src/components/Todo";
+import FormTest from "./components/FormTest";
 
 const getLocalStorage = () => {
   let list = localStorage.getItem("item");
@@ -50,6 +51,7 @@ function App() {
   return (
     <div className="h-screen main-color overflow-auto flex">
       <div className="grid grid-cols-1 md:grid-cols-2 w-full md:mt-10 mt-2 mx-10 h-[200px]">
+        <FormTest />
         <div className="w-full max-w-[500px] mx-auto">
           <Form
             value={value}
