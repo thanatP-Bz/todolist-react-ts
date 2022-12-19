@@ -24,7 +24,7 @@ function App() {
     if (value) {
       setItem([...item, itemTodo]);
     }
-
+    /* 
     const response = await fetch("http://localhost:5000/api/v1/todo/", {
       method: "POST",
       body: JSON.stringify(""),
@@ -39,7 +39,7 @@ function App() {
 
     if (response.ok) {
       console.log("item Added", data);
-    }
+    } */
 
     setValue("");
   };

@@ -3,6 +3,7 @@ import Todo from "../model/todoModel.js";
 const createTodo = async (req, res) => {
   const { todo } = req.body;
 
+  console.log(todo);
   try {
     const list = await Todo.create({ todo });
     res.status(201).json(list);

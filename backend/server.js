@@ -3,13 +3,14 @@ import express from "express";
 import connectDB from "./connectDB/connectDB.js";
 import dotenv from "dotenv";
 import todoRoute from "./route/todoRoute.js";
+import bodyParser from "body-parser";
 
 //env
 dotenv.config();
 const app = express();
 
 //middleware
-app.use(express.json());
+app.use(bodyParser.json());
 app.use(cors());
 
 //route
