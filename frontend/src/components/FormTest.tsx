@@ -3,12 +3,14 @@ import React, { FormEvent, useState } from "react";
 const FormTest = () => {
   const [todos, setTodos] = useState<string>("");
 
+  const number = 3;
+
   const handlerSumbit = async (e: FormEvent<HTMLElement>) => {
     e.preventDefault();
 
     const response = await fetch("http://localhost:5000/api/v1/todo/", {
       method: "POST",
-      body: JSON.stringify({ todos }),
+      body: JSON.stringify({ todo: todos, number: number }),
 
       headers: { "Content-Type": "application/json" },
     });
