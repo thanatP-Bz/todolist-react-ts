@@ -40,6 +40,19 @@ const SingleItem = ({ todo, item, setItem }: Props) => {
     localStorage.setItem("item", JSON.stringify(item));
   }, [item]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch("http://localhost:5000/api/v1/todo/");
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(data);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <form
       onSubmit={(e) => {

@@ -19,15 +19,9 @@ function App() {
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const itemTodo = { id: Date.now(), todo: value, isDone: false };
-
-    if (value) {
-      setItem([...item, itemTodo]);
-    }
-    /* 
-    const response = await fetch("http://localhost:5000/api/v1/todo/", {
+    const response = await fetch("http://localhost:5000/api/v1/todo/create", {
       method: "POST",
-      body: JSON.stringify(""),
+      body: JSON.stringify({ todo: value }),
       headers: { "Content-Type": "application/json" },
     });
 
@@ -38,8 +32,9 @@ function App() {
     }
 
     if (response.ok) {
-      console.log("item Added", data);
-    } */
+      const itemTodo = { id: data._id, todo: data.todo, isDone: false };
+      console.log(data);
+    }
 
     setValue("");
   };
@@ -50,8 +45,8 @@ function App() {
 
   return (
     <div className="h-screen main-color overflow-auto flex">
+      <FormTest />
       <div className="grid grid-cols-1 md:grid-cols-2 w-full md:mt-10 mt-2 mx-10 h-[200px]">
-        <FormTest />
         <div className="w-full max-w-[500px] mx-auto">
           <Form
             value={value}

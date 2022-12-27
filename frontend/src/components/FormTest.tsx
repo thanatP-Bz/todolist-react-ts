@@ -1,47 +1,40 @@
-import React, { FormEvent, useState } from "react";
+import { useEffect, useState } from "react";
+
+interface Itodo {
+  _id: number;
+  todo: string;
+}
 
 const FormTest = () => {
-  const [todos, setTodos] = useState<string>("");
+  const [todos, setTodos] = useState<Itodo[]>([]);
 
-  const number = 3;
-
-  const handlerSumbit = async (e: FormEvent<HTMLElement>) => {
-    e.preventDefault();
-
-    const response = await fetch("http://localhost:5000/api/v1/todo/", {
-      method: "POST",
-      body: JSON.stringify({ todo: todos, number: number }),
-
-      headers: { "Content-Type": "application/json" },
-    });
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:5000/api/v1/todo");
 
     const data = await response.json();
+    console.log(data);
 
     if (!response.ok) {
       console.log("error");
     }
 
     if (response.ok) {
-      console.log("item Added", data);
+      setTodos(data);
     }
-
-    setTodos("");
   };
 
-  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setTodos(e.target.value);
-  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
-    <form onSubmit={handlerSumbit}>
-      <input
-        placeholder="enter value"
-        value={todos}
-        type="text"
-        name="todo"
-        onChange={handlerChange}
-      />
-    </form>
+    <div>
+      {/*  {todos.map((item) => (
+        <ul>
+          <li key={item._id}>{item.todo}</li>
+        </ul>
+      ))} */}
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SingleItem from "./SingleItem";
 import { Todo } from "../components/Todo";
 
