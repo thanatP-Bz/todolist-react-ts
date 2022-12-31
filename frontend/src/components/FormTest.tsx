@@ -27,13 +27,15 @@ const FormTest = () => {
     fetchData();
   }, []);
 
+  console.log(todos);
+
   return (
     <div>
-      {/*  {todos.map((item) => (
-        <ul>
-          <li key={item._id}>{item.todo}</li>
+      {todos.map((item) => (
+        <ul key={item._id}>
+          <li>{item.todo}</li>
         </ul>
-      ))} */}
+      ))}
     </div>
   );
 };
