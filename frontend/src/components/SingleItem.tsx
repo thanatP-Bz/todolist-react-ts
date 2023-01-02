@@ -17,20 +17,20 @@ const SingleItem = ({ todo, item, setItem }: Props) => {
   const isDoneHandler = (id: number) => {
     setItem(
       item.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+        todo._id === id ? { ...todo, isDone: !todo.isDone } : todo
       )
     );
   };
 
   const deleteHandler = (id: number) => {
-    setItem(item.filter((todo) => todo.id !== id));
+    setItem(item.filter((todo) => todo._id !== id));
   };
 
   const handlerSubmit = (e: React.FormEvent, id: number) => {
     e.preventDefault();
 
     setItem(
-      item.map((todo) => (todo.id === id ? { ...todo, todo: editTodo } : todo))
+      item.map((todo) => (todo._id === id ? { ...todo, todo: editTodo } : todo))
     );
 
     setEdit(false);
@@ -40,23 +40,10 @@ const SingleItem = ({ todo, item, setItem }: Props) => {
     localStorage.setItem("item", JSON.stringify(item));
   }, [item]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:5000/api/v1/todo/");
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log(data);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <form
       onSubmit={(e) => {
-        handlerSubmit(e, todo.id);
+        handlerSubmit(e, todo._id);
       }}
       className="bg-white w-full text-xl text-gray-700 shadow-lg rounded-lg px-8 py-3 md:p-5 mb-3 md:mb-6"
     >
@@ -78,7 +65,7 @@ const SingleItem = ({ todo, item, setItem }: Props) => {
         <div className="flex">
           <span
             onClick={() => {
-              isDoneHandler(todo.id);
+              isDoneHandler(todo._id);
             }}
             className="p-2 rounded-md text-blue-400 cursor-pointer"
           >
@@ -95,7 +82,7 @@ const SingleItem = ({ todo, item, setItem }: Props) => {
             <AiFillEdit />
           </span>
           <span
-            onClick={() => deleteHandler(todo.id)}
+            onClick={() => deleteHandler(todo._id)}
             className="p-2 rounded-md text-blue-400 cursor-pointer"
           >
             <BsTrashFill />

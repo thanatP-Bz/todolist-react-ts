@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Form from "../src/components/Form";
 import ItemList from "../src/components/ItemList";
 import { Todo } from "../src/components/Todo";
-import FormTest from "./components/FormTest";
 
 const getLocalStorage = () => {
   let list = localStorage.getItem("item");
@@ -14,7 +13,25 @@ const getLocalStorage = () => {
 
 function App() {
   const [value, setValue] = useState<string>("");
-  const [item, setItem] = useState<Todo[]>([]);
+  const [item, setItem] = useState<Todo[]>(getLocalStorage());
+
+  const fetchData = async () => {
+    const response = await fetch("http://localhost:5000/api/v1/todo");
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.log("error");
+    }
+
+    if (response.ok) {
+      setItem(data);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,12 +49,12 @@ function App() {
     }
 
     if (response.ok) {
-      const itemTodo = { id: data._id, todo: data.todo, isDone: false };
-      console.log(data);
+      setItem((prev) => [...prev, data]);
     }
 
     setValue("");
   };
+  console.log(item);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);
@@ -45,7 +62,6 @@ function App() {
 
   return (
     <div className="h-screen main-color overflow-auto flex">
-      <FormTest />
       <div className="grid grid-cols-1 md:grid-cols-2 w-full md:mt-10 mt-2 mx-10 h-[200px]">
         <div className="w-full max-w-[500px] mx-auto">
           <Form

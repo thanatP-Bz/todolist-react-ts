@@ -12,7 +12,12 @@ const ItemList: React.FC<Props> = ({ item, setItem }) => {
     <div className="md:ml-10">
       {item.map((todo) => {
         return (
-          <SingleItem key={todo.id} todo={todo} item={item} setItem={setItem} />
+          <SingleItem
+            key={todo._id}
+            todo={todo}
+            item={item}
+            setItem={setItem}
+          />
         );
       })}
     </div>
