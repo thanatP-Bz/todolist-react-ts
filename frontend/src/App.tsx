@@ -49,12 +49,11 @@ function App() {
     }
 
     if (response.ok) {
-      setItem((prev) => [...prev, data]);
+      setItem((prev) => [...prev, data.list]);
     }
 
     setValue("");
   };
-  console.log(item);
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(e.target.value);

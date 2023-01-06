@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Todo from "../model/todoModel.js";
 
 const getTodo = async (req, res) => {
@@ -16,16 +17,35 @@ const createTodo = async (req, res) => {
     const list = await Todo.create({ todo });
     res.status(201).json({ list });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 };
 
 const editTodo = async (req, res) => {
-  res.send(`edit todolist`);
+  const { id } = req.params;
+  const { todo } = req.body;
+
+  try {
+    const list = await Todo.findByIdAndUpdate(
+      { _id: id },
+      { todo },
+      { new: true }
+    );
+    res.status(201).json({ list });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const deleteTodo = async (req, res) => {
-  res.send(`delete Todo`);
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ msg: "the id not found" });
+  }
+
+  const list = await Todo.findByIdAndDelete({ _id: id });
+  res.status(200).json(list);
 };
 
 export { getTodo, createTodo, editTodo, deleteTodo };

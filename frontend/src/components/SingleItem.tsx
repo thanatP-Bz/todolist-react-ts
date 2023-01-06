@@ -22,15 +22,40 @@ const SingleItem = ({ todo, item, setItem }: Props) => {
     );
   };
 
-  const deleteHandler = (id: number) => {
-    setItem(item.filter((todo) => todo._id !== id));
+  const deleteHandler = async (id: number) => {
+    const response = await fetch(
+      `http://localhost:5000/api/v1/todo/delete/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const data = await response.json();
+
+    const newItem = item.filter((todo) => todo._id !== data._id);
+    setItem(newItem);
+
+    localStorage.removeItem("item");
   };
 
-  const handlerSubmit = (e: React.FormEvent, id: number) => {
+  const handlerSubmit = async (e: React.FormEvent, id: number) => {
     e.preventDefault();
 
+    const response = await fetch(
+      `http://localhost:5000/api/v1/todo/edit/${id}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({ todo: editTodo }),
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    const newVal = await response.json();
+
     setItem(
-      item.map((todo) => (todo._id === id ? { ...todo, todo: editTodo } : todo))
+      item.map((todo) =>
+        todo._id === id ? { ...todo, todo: newVal.list.todo } : todo
+      )
     );
 
     setEdit(false);

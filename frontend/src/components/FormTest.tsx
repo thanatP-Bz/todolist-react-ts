@@ -27,8 +27,6 @@ const FormTest = () => {
     fetchData();
   }, []);
 
-  console.log(todos);
-
   return (
     <div>
       {todos.map((item) => (
